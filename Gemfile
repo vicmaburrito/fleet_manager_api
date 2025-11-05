@@ -36,6 +36,29 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
+  # A library for generating fake data such as names, addresses, and phone numbers. [https://github.com/faker-ruby/faker]
+  gem "faker"
+
+  # Provides a framework for writing, organizing, and running RSpec tests. [https://github.com/thoughtbot/factory_bot_rails]
+  gem "factory_bot_rails"
+
+  # RSpec for Rails 7+ [https://github.com/rspec/rspec-rails]
+  gem "rswag-api"
+  gem "rswag-ui"
+  gem "rswag-specs"
+
+  # Rails Generators for Cucumber with special support for Capybara and DatabaseCleaner. [https://github.com/cucumber/cucumber-rails]
+  gem "cucumber-rails", require: false
+
+  # Strategies for cleaning databases using ActiveRecord. Can be used to ensure a clean state for testing. [https://github.com/DatabaseCleaner/database_cleaner-active_record]
+  gem "database_cleaner-active_record"
+
+  # RSpec for Rails 7+ [https://github.com/rspec/rspec-rails]
+  gem "rspec-rails"
+
+  # Simple one-liner tests for common Rails functionality [https://github.com/thoughtbot/shoulda-matchers]
+  gem "shoulda-matchers", "~> 6.0"
+
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
