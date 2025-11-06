@@ -104,3 +104,97 @@ paths:
                   - password
               required:
               - user
+  "/api/v1/auth/login":
+    post:
+      summary: User login
+      tags:
+      - Authentication
+      parameters: []
+      responses:
+        '200':
+          description: successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      email:
+                        type: string
+                      created_at:
+                        type: string
+                required:
+                - token
+                - user
+        '401':
+          description: invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+                    required:
+                    - code
+                    - message
+        '422':
+          description: validation failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+                      details:
+                        type: object
+                    required:
+                    - code
+                    - message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: user@example.com
+                    password:
+                      type: string
+                      example: password123
+                  required:
+                  - email
+                  - password
+              required:
+              - user
+  "/api/v1/auth/logout":
+    delete:
+      summary: logout
+      tags:
+      - Auth
+      security:
+      - bearerAuth: []
+      responses:
+        '204':
+          description: no content
