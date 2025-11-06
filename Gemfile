@@ -22,6 +22,8 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
+# JSON serializer for Ruby, JRuby and TruffleRuby [https://github.com/okuramasafumi/alba]
+gem "alba"
 
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard. [https://github.com/jwt/ruby-jwt]
 gem "jwt"
