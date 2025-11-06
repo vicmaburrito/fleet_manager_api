@@ -1,6 +1,15 @@
 class Api::V1::Auth::RegistrationsController < ApplicationController
   def create
-    user = User.new(user_params)
+    contract_result = Auth::RegistrationContract.new.call(user_params.to_h)
+
+    if contract_result.failure?
+      return render json: {
+        error: "Validation failed",
+        details: format_contract_errors(contract_result.errors)
+      }, status: :unprocessable_entity
+    end
+
+    user = User.new(contract_result)
 
     if user.save
       result = ::JsonWebToken::Encode.call(payload: { user_id: user.id })
@@ -14,7 +23,10 @@ class Api::V1::Auth::RegistrationsController < ApplicationController
         render json: { error: result.error }, status: :unprocessable_entity
       end
     else
-      render_validation_errors(user)
+      render json: {
+        error: "User creation failed",
+        details: user.errors.full_messages
+      }, status: :unprocessable_entity
     end
   end
 
@@ -24,11 +36,9 @@ class Api::V1::Auth::RegistrationsController < ApplicationController
     params.require(:user).permit(:email, :password)
   end
 
-  def render_validation_errors(user)
-    render json: {
-      error: "Validation failed",
-      message: "User creation failed",
-      details: user.errors.full_messages
-    }, status: :unprocessable_entity
+  def format_contract_errors(errors)
+    errors.to_h.flat_map do |key, messages|
+      messages.map { |msg| "#{key.to_s.humanize} #{msg}" }
+    end
   end
 end

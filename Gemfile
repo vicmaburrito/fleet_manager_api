@@ -22,8 +22,15 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
+
+# Add pagination [https://github.com/ddnexus/pagy]
+gem "pagy"
+
 # JSON serializer for Ruby, JRuby and TruffleRuby [https://github.com/okuramasafumi/alba]
 gem "alba"
+
+# Validation library with type-safe schemas and rules [https://github.com/dry-rb/dry-validation]
+gem "dry-validation"
 
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard. [https://github.com/jwt/ruby-jwt]
 gem "jwt"
