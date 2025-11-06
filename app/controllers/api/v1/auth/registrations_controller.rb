@@ -9,7 +9,7 @@ class Api::V1::Auth::RegistrationsController < ApplicationController
       }, status: :unprocessable_entity
     end
 
-    user = User.new(contract_result)
+    user = User.new(contract_result.to_h)
 
     if user.save
       result = ::JsonWebToken::Encode.call(payload: { user_id: user.id })

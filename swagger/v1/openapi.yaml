@@ -1,0 +1,106 @@
+---
+openapi: 3.0.3
+info:
+  title: Fleet Manager API
+  version: v1
+  description: API documentation for vehicle fleet management system
+servers:
+- url: http://localhost:3000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  "/api/v1/auth/register":
+    post:
+      summary: Register a new user
+      tags:
+      - Authentication
+      description: Creates a new user account and returns a JWT authentication token
+      parameters: []
+      responses:
+        '201':
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT authentication token
+                    example: eyJhbGciOiJIUzI1NiJ9...
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      email:
+                        type: string
+                        example: newuser@example.com
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                required:
+                - token
+                - user
+        '422':
+          description: Token generation failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Token generation failed
+                  details:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - Email is missing
+        '400':
+          description: Bad request - User wrapper missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid parameters
+                  message:
+                    type: string
+                    example: 'param is missing or the value is empty: user'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      description: User email address
+                      example: user@example.com
+                    password:
+                      type: string
+                      format: password
+                      description: User password (minimum 8 characters)
+                      example: password123
+                      minLength: 8
+                  required:
+                  - email
+                  - password
+              required:
+              - user
