@@ -9,7 +9,7 @@ class Api::V1::Auth::BaseController < ApplicationController
     render json: {
       error: "Invalid parameters",
       message: exception.message
-    }, status: :unprocessable_entity
+    }, status: :bad_request
   end
 
   def current_user
