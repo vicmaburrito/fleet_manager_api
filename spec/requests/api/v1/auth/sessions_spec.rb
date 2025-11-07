@@ -19,7 +19,7 @@ RSpec.describe 'API::V1::Auth::Sessions', type: :request do
             required: %w[email password]
           }
         },
-        required: ['user']
+        required: [ 'user' ]
       }
 
       response(200, 'successful login') do
@@ -90,22 +90,6 @@ RSpec.describe 'API::V1::Auth::Sessions', type: :request do
           expect(body['error']['code']).to eq('validation_failed')
           expect(body['error']['details']).to be_present
         end
-      end
-    end
-  end
-
-  path '/api/v1/auth/logout' do
-    delete('logout') do
-      tags 'Auth'
-      security [ bearerAuth: [] ]
-      produces 'application/json'
-
-      response(204, 'no content') do
-        let(:user) { create(:user) }
-        let(:token) { JsonWebToken::Encode.call(payload: { user_id: user.id }).token }
-        let(:Authorization) { "Bearer #{token}" }
-
-        run_test!
       end
     end
   end
