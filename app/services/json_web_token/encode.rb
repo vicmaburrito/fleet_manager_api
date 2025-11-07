@@ -20,6 +20,6 @@ class JsonWebToken::Encode
   end
 
   def secret_key
-    ENV.fetch("JWT_SECRET_KEY") { raise "JWT_SECRET_KEY not configured" }
+    ENV.fetch("JWT_SECRET_KEY", nil)
   end
 end
