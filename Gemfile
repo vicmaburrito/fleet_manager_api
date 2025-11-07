@@ -23,6 +23,9 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# AASM - State machines for Ruby classes (plain Ruby, ActiveRecord, Mongoid, NoBrainer, Dynamoid) [https://github.com/aasm/aasm]
+gem "aasm"
+
 # Add pagination [https://github.com/ddnexus/pagy]
 gem "pagy"
 
