@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_07_163840) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_07_194444) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -21,5 +21,20 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_07_163840) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.citext "vin", null: false
+    t.citext "plate", null: false
+    t.string "brand", null: false
+    t.string "model", null: false
+    t.integer "year", null: false
+    t.string "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plate"], name: "index_vehicles_on_plate", unique: true
+    t.index ["status"], name: "index_vehicles_on_status"
+    t.index ["vin"], name: "index_vehicles_on_vin", unique: true
+    t.index ["year"], name: "index_vehicles_on_year"
   end
 end
