@@ -140,6 +140,8 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     diff-lcs (1.6.2)
+    discard (1.4.0)
+      activerecord (>= 4.2, < 9.0)
     dotenv (3.1.8)
     dotenv-rails (3.1.8)
       dotenv (= 3.1.8)
@@ -410,6 +412,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner-active_record
   debug
+  discard
   dotenv-rails
   dry-validation
   factory_bot_rails

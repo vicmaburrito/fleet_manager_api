@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_10_043731) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_10_182650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -25,7 +25,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_10_043731) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index ["date"], name: "index_maintenance_services_on_date"
+    t.index ["discarded_at"], name: "index_maintenance_services_on_discarded_at"
     t.index ["priority"], name: "index_maintenance_services_on_priority"
     t.index ["status"], name: "index_maintenance_services_on_status"
     t.index ["vehicle_id", "date"], name: "index_maintenance_services_on_vehicle_id_and_date"
@@ -50,6 +52,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_10_043731) do
     t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_vehicles_on_discarded_at"
     t.index ["plate"], name: "index_vehicles_on_plate", unique: true
     t.index ["status"], name: "index_vehicles_on_status"
     t.index ["vin"], name: "index_vehicles_on_vin", unique: true

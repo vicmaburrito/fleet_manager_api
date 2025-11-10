@@ -44,6 +44,9 @@ gem "interactor"
 # A Ruby gem to load environment variables from `.env`. [https://github.com/bkeepers/dotenv]
 gem "dotenv-rails"
 
+# Soft deletes for ActiveRecord done right [https://github.com/jhawthorn/discard]
+gem "discard"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
