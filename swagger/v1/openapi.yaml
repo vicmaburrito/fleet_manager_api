@@ -188,13 +188,116 @@ paths:
                   - password
               required:
               - user
-  "/api/v1/auth/logout":
-    delete:
-      summary: logout
+  "/api/v1/vehicles":
+    get:
+      summary: List vehicles
       tags:
-      - Auth
+      - Vehicles
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+        '401':
+          description: unauthorized
+    post:
+      summary: Create vehicle
+      tags:
+      - Vehicles
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: created
+        '422':
+          description: validation failed
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vehicle:
+                  type: object
+                  properties:
+                    vin:
+                      type: string
+                      example: 1HGBH41JXMN109186
+                    plate:
+                      type: string
+                      example: ABC1234
+                    brand:
+                      type: string
+                      example: Toyota
+                    model:
+                      type: string
+                      example: Camry
+                    year:
+                      type: integer
+                      example: 2020
+                    status:
+                      type: string
+                      example: active
+                  required:
+                  - vin
+                  - plate
+                  - brand
+                  - model
+                  - year
+  "/api/v1/vehicles/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Show vehicle
+      tags:
+      - Vehicles
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: found
+        '404':
+          description: not found
+    patch:
+      summary: Update vehicle
+      tags:
+      - Vehicles
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: updated
+        '422':
+          description: invalid params
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vehicle:
+                  type: object
+                  properties:
+                    brand:
+                      type: string
+                    model:
+                      type: string
+    delete:
+      summary: Delete vehicle
+      tags:
+      - Vehicles
       security:
       - bearerAuth: []
       responses:
         '204':
-          description: no content
+          description: deleted
+        '404':
+          description: not found
