@@ -14,7 +14,19 @@ class Api::V1::VehiclesController < Api::V1::Auth::BaseController
   end
 
   def create
-    @vehicle = Vehicle.new(vehicle_params)
+    contract_result = VehicleContract.new.call(vehicle_params.to_h)
+
+    if contract_result.failure?
+      return render json: {
+        error: {
+          code: "validation_failed",
+          message: "Validation failed",
+          details: format_contract_errors(contract_result.errors)
+        }
+      }, status: :unprocessable_content
+    end
+
+    @vehicle = Vehicle.new(contract_result.to_h)
 
     if @vehicle.save
       render json: VehicleSerializer.new(@vehicle), status: :created
@@ -71,6 +83,10 @@ class Api::V1::VehiclesController < Api::V1::Auth::BaseController
     else
       scope.order(created_at: :desc)
     end
+  end
+
+  def format_contract_errors(errors)
+    errors.to_h.transform_values { |messages| messages }
   end
 
   def render_validation_errors(resource)
