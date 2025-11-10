@@ -3,7 +3,7 @@ class Vehicle < ApplicationRecord
 
   SORTABLE_FIELDS = [ :id, :vin, :plate, :brand, :model, :year, :status, :created_at ].freeze
 
-  # has_many :maintenance_services, dependent: :destroy
+  has_many :maintenance_services, dependent: :destroy
 
   validates :vin, presence: true, uniqueness: { case_sensitive: false }
   validates :plate, presence: true, uniqueness: { case_sensitive: false }
