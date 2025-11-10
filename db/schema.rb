@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_07_194444) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_10_043731) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "maintenance_services", force: :cascade do |t|
+    t.bigint "vehicle_id", null: false
+    t.text "description", null: false
+    t.string "status", default: "pending", null: false
+    t.date "date", null: false
+    t.integer "cost_cents", default: 0, null: false
+    t.string "priority", default: "low", null: false
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_maintenance_services_on_date"
+    t.index ["priority"], name: "index_maintenance_services_on_priority"
+    t.index ["status"], name: "index_maintenance_services_on_status"
+    t.index ["vehicle_id", "date"], name: "index_maintenance_services_on_vehicle_id_and_date"
+    t.index ["vehicle_id", "status"], name: "index_maintenance_services_on_vehicle_id_and_status"
+    t.index ["vehicle_id"], name: "index_maintenance_services_on_vehicle_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email"
@@ -37,4 +55,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_07_194444) do
     t.index ["vin"], name: "index_vehicles_on_vin", unique: true
     t.index ["year"], name: "index_vehicles_on_year"
   end
+
+  add_foreign_key "maintenance_services", "vehicles"
 end
