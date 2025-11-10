@@ -188,6 +188,125 @@ paths:
                   - password
               required:
               - user
+  "/api/v1/vehicles/{vehicle_id}/maintenance_services":
+    parameters:
+    - name: vehicle_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: List maintenance services for a vehicle
+      tags:
+      - Maintenance Services
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+        '404':
+          description: vehicle not found
+        '401':
+          description: unauthorized
+    post:
+      summary: Create maintenance service
+      tags:
+      - Maintenance Services
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: created
+        '422':
+          description: validation failed
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                maintenance_service:
+                  type: object
+                  properties:
+                    description:
+                      type: string
+                      example: Oil change
+                    date:
+                      type: string
+                      format: date
+                      example: '2024-01-15'
+                    cost_cents:
+                      type: integer
+                      example: 5000
+                    status:
+                      type: string
+                      example: pending
+                    priority:
+                      type: string
+                      example: low
+                  required:
+                  - description
+                  - date
+                  - cost_cents
+  "/api/v1/maintenance_services/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Show maintenance service
+      tags:
+      - Maintenance Services
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: found
+        '404':
+          description: not found
+    patch:
+      summary: Update maintenance service
+      tags:
+      - Maintenance Services
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: updated
+        '422':
+          description: invalid params
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                maintenance_service:
+                  type: object
+                  properties:
+                    description:
+                      type: string
+                    status:
+                      type: string
+                    priority:
+                      type: string
+    delete:
+      summary: Delete maintenance service
+      tags:
+      - Maintenance Services
+      security:
+      - bearerAuth: []
+      responses:
+        '204':
+          description: deleted
+        '404':
+          description: not found
   "/api/v1/vehicles":
     get:
       summary: List vehicles
