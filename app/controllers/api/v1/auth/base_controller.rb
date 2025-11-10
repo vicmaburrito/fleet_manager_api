@@ -1,5 +1,5 @@
 class Api::V1::Auth::BaseController < ApplicationController
-  before_action :authenticate_user!, except: [ :create ]
+  before_action :authenticate_user!
 
   rescue_from ActionController::ParameterMissing, with: :invalid_params
 
