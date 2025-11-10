@@ -61,7 +61,7 @@ RSpec.describe 'API::V1::MaintenanceServices', type: :request do
             type: :object,
             properties: {
               description: { type: :string, example: 'Oil change' },
-              date: { type: :string, format: :date, example: '2025-12-15' },
+              date: { type: :string, format: :date, example: '2025-11-09' },
               cost_cents: { type: :integer, example: 5000 },
               status: { type: :string, example: 'pending' },
               priority: { type: :string, example: 'low' }
@@ -190,7 +190,8 @@ RSpec.describe 'API::V1::MaintenanceServices', type: :request do
         let(:id) { service.id }
 
         run_test! do
-          expect(MaintenanceService.exists?(id)).to be_falsey
+          expect(MaintenanceService.kept.exists?(id)).to be_falsey
+          expect(MaintenanceService.with_discarded.find(id)).to be_discarded
         end
       end
 
