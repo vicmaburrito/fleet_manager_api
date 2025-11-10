@@ -110,7 +110,7 @@ RSpec.describe 'Authentication - Registration', type: :request do
 
         run_test! do |response|
           data = JSON.parse(response.body)
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
           expect(data['details']).to include(match(/Email must be a valid email address/))
         end
       end
@@ -133,7 +133,7 @@ RSpec.describe 'Authentication - Registration', type: :request do
 
         run_test! do |response|
           data = JSON.parse(response.body)
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
           expect(data['details']).to include(match(/Password must be at least 8 characters/))
         end
       end
@@ -160,7 +160,7 @@ RSpec.describe 'Authentication - Registration', type: :request do
 
         run_test! do |response|
           data = JSON.parse(response.body)
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
           expect(data['details']).to include(match(/Email has already been taken/))
         end
       end
@@ -217,7 +217,7 @@ RSpec.describe 'Authentication - Registration', type: :request do
 
         run_test! do |response|
           data = JSON.parse(response.body)
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
           expect(data['error']).to eq('Token generation failed')
         end
       end

@@ -11,7 +11,7 @@ class Api::V1::Auth::SessionsController < Api::V1::Auth::BaseController
           message: "Invalid input data",
           details: format_contract_errors(contract_result.errors)
         }
-      }, status: :unprocessable_entity
+      }, status: :unprocessable_content
     end
 
     user = User.authenticate_by(email: contract_result[:email].downcase, password: contract_result[:password])
@@ -52,7 +52,7 @@ class Api::V1::Auth::SessionsController < Api::V1::Auth::BaseController
           code: "token_generation_failed",
           message: result.error
         }
-      }, status: :unprocessable_entity
+      }, status: :unprocessable_content
     end
   end
 
