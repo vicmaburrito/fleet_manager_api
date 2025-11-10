@@ -47,7 +47,7 @@ class Api::V1::MaintenanceServicesController < Api::V1::Auth::BaseController
   end
 
   def destroy
-    @maintenance_service.destroy!
+    @maintenance_service.discard
     head :no_content
   end
 

@@ -44,7 +44,7 @@ class Api::V1::VehiclesController < Api::V1::Auth::BaseController
   end
 
   def destroy
-    @vehicle.destroy!
+    @vehicle.discard
     head :no_content
   end
 

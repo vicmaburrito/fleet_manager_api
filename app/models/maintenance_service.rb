@@ -1,5 +1,6 @@
 class MaintenanceService < ApplicationRecord
   include AASM
+  include Discard::Model
 
   SORTABLE_FIELDS = [ :id, :date, :cost_cents, :priority, :status, :created_at ].freeze
 
@@ -58,7 +59,8 @@ class MaintenanceService < ApplicationRecord
   }
 
   after_save :sync_vehicle_status
-  after_destroy :sync_vehicle_status
+  after_discard :sync_vehicle_status
+  after_undiscard :sync_vehicle_status
 
   def self.filterable_attributes
     %w[status priority vehicle_id]
