@@ -20,6 +20,10 @@ Rails.application.routes.draw do
       end
 
       resources :maintenance_services, only: [ :show, :update, :destroy ]
+
+      namespace :reports do
+        resources :maintenance_reports, only: [ :create ]
+      end
     end
   end
 
