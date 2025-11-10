@@ -307,6 +307,132 @@ paths:
           description: deleted
         '404':
           description: not found
+  "/api/v1/reports/maintenance_reports":
+    post:
+      summary: Crea un reporte de resumen de mantenimiento
+      tags:
+      - Reports
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Reporte sin servicios en el rango de fechas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_orders:
+                    type: integer
+                    example: 4
+                    description: Número total de órdenes de mantenimiento en el período.
+                  total_cost_cents:
+                    type: integer
+                    example: 92000
+                    description: Costo total acumulado en centavos.
+                  cost_by_status:
+                    type: object
+                    additionalProperties:
+                      type: integer
+                    example:
+                      pending: 50000
+                      completed: 40000
+                      in_progress: 2000
+                    description: Desglose del costo total por estado del servicio.
+                  top_3_vehicles_by_cost:
+                    type: object
+                    additionalProperties:
+                      type: integer
+                    example:
+                      AAA111: 60000
+                      CCC333: 30000
+                      BBB222: 2000
+                    description: Los 3 vehículos con mayor costo de mantenimiento
+                      en el período.
+                  breakdown_by_vehicle:
+                    type: object
+                    additionalProperties:
+                      type: integer
+                    description: Desglose detallado del costo por cada vehículo en
+                      el período.
+                required:
+                - total_orders
+                - total_cost_cents
+                - cost_by_status
+                - top_3_vehicles_by_cost
+                - breakdown_by_vehicle
+        '422':
+          description: Error al generar el reporte
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Report generation failed
+        '401':
+          description: No autorizado - token inválido o ausente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from:
+                  type: string
+                  format: date
+                  description: Fecha de inicio del reporte (YYYY-MM-DD)
+                  example: '2024-08-01'
+                to:
+                  type: string
+                  format: date
+                  description: Fecha de fin del reporte (YYYY-MM-DD)
+                  example: '2024-11-10'
+  "/api/v1/reports/maintenance_reports.csv":
+    post:
+      summary: Exporta reporte de mantenimiento en formato CSV
+      tags:
+      - Reports
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: Reporte exportado exitosamente en formato CSV
+          content:
+            text/csv:
+              schema:
+                type: string
+                description: Archivo CSV con el resumen de mantenimiento
+                example: |
+                  Resumen de Mantenimiento,
+                  Total de Órdenes:,4
+                  Costo Total (cents):,92000
+
+                  Desglose por Status,Costo (cents)
+                  Pending,50000
+                  Completed,40000
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from:
+                  type: string
+                  format: date
+                  description: Fecha de inicio del reporte (YYYY-MM-DD)
+                  example: '2024-08-01'
+                to:
+                  type: string
+                  format: date
+                  description: Fecha de fin del reporte (YYYY-MM-DD)
+                  example: '2024-11-10'
   "/api/v1/vehicles":
     get:
       summary: List vehicles
