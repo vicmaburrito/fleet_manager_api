@@ -80,7 +80,7 @@ class Api::V1::VehiclesController < Api::V1::Auth::BaseController
         message: "Validation failed",
         details: resource.errors.messages
       }
-    }, status: :unprocessable_entity
+    }, status: :unprocessable_content
   end
 
   def not_found

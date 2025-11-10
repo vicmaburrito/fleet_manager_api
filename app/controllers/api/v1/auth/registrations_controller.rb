@@ -6,7 +6,7 @@ class Api::V1::Auth::RegistrationsController < ApplicationController
       return render json: {
         error: "Validation failed",
         details: format_contract_errors(contract_result.errors)
-      }, status: :unprocessable_entity
+      }, status: :unprocessable_content
     end
 
     user = User.new(contract_result.to_h)
@@ -20,13 +20,13 @@ class Api::V1::Auth::RegistrationsController < ApplicationController
           user: UserSerializer.new(user)
         }, status: :created
       else
-        render json: { error: result.error }, status: :unprocessable_entity
+        render json: { error: result.error }, status: :unprocessable_content
       end
     else
       render json: {
         error: "User creation failed",
         details: user.errors.full_messages
-      }, status: :unprocessable_entity
+      }, status: :unprocessable_content
     end
   end
 
