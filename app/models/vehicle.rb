@@ -1,5 +1,6 @@
 class Vehicle < ApplicationRecord
   include AASM
+  include Discard::Model
 
   SORTABLE_FIELDS = [ :id, :vin, :plate, :brand, :model, :year, :status, :created_at ].freeze
 
