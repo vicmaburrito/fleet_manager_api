@@ -14,7 +14,12 @@ Rails.application.routes.draw do
         post "login",    to: "sessions#create"
         delete "logout", to: "sessions#destroy"
       end
-      resources :vehicles
+
+      resources :vehicles do
+        resources :maintenance_services, only: [ :index, :create ]
+      end
+
+      resources :maintenance_services, only: [ :show, :update, :destroy ]
     end
   end
 
