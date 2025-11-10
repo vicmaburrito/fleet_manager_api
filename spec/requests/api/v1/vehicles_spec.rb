@@ -164,7 +164,8 @@ RSpec.describe 'API::V1::Vehicles', type: :request do
         let(:id) { vehicle.id }
 
         run_test! do
-          expect(Vehicle.exists?(id)).to be_falsey
+          expect(Vehicle.kept.exists?(id)).to be_falsey
+          expect(Vehicle.with_discarded.find(id)).to be_discarded
         end
       end
 

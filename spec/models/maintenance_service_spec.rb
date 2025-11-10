@@ -104,4 +104,20 @@ RSpec.describe MaintenanceService, type: :model do
       expect(vehicle).to be_active
     end
   end
+
+  describe 'Soft Delete with Discard' do
+    let!(:service) { create(:maintenance_service) }
+    it 'soft deletes the record when discard is called' do
+      expect(service).to be_kept
+      expect { service.discard }.to change { service.reload.discarded_at }.from(nil).to(be_present)
+      expect(MaintenanceService.kept).not_to include(service)
+      expect(MaintenanceService.discarded).to include(service)
+    end
+
+    it 'can be restored' do
+      service.discard
+      expect { service.undiscard }.to change { service.reload.discarded_at }.from(be_present).to(nil)
+      expect(MaintenanceService.kept).to include(service)
+    end
+  end
 end
