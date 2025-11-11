@@ -227,7 +227,7 @@ GEM
     matrix (0.4.3)
     memoist3 (1.0.0)
     mini_mime (1.1.5)
-    minitest (5.26.0)
+    minitest (5.26.1)
     msgpack (1.8.0)
     multi_test (1.1.0)
     net-imap (0.5.12)
@@ -374,8 +374,8 @@ GEM
       rubocop-rails (>= 2.30)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
-    shoulda-matchers (6.5.0)
-      activesupport (>= 5.2.0)
+    shoulda-matchers (7.0.1)
+      activesupport (>= 7.1)
     stringio (3.1.7)
     sys-uname (1.4.1)
       ffi (~> 1.1)
@@ -428,7 +428,7 @@ DEPENDENCIES
   rswag-specs
   rswag-ui
   rubocop-rails-omakase
-  shoulda-matchers (~> 6.0)
+  shoulda-matchers (~> 7.0)
   tzinfo-data
 
 BUNDLED WITH
